@@ -1,0 +1,99 @@
+.hero{
+    text-align: center;
+    position:relative;
+    max-width:100%;
+    overflow:hidden;
+    border-radius:50% / 4px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(255,255,255,0.6);
+
+    >div{
+        display:inline-block;
+        position:relative;
+        vertical-align:bottom;
+        padding:85px 0 0;
+    }
+    .curtain-right,
+    .curtain-left{
+        position:absolute;
+        right:0;
+        top:0;
+        height:100%;
+
+        >div{
+            overflow: hidden;
+            visibility: hidden;
+            transform: rotate(120deg);
+            text-align:center;
+            width: 80px;
+            height: 71px;
+
+            >div{
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                transform: rotate(-60deg);
+
+                >div{
+                    width: 100%;
+                    height: 100%;
+                    visibility: visible;
+                    transform: rotate(-60deg);
+                    box-shadow:inset -25px 0 50px rgba(255,255,255,0.4);
+                }
+            }
+        }
+    }
+    .curtain-left{
+        right:auto;
+        left:0;
+        >div:nth-child(odd){
+            margin:-35px 40px 0 -40px;
+            >div>div{
+                background:linear-gradient(-90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.7) 60%, $t 100%);
+                box-shadow:inset 25px 0 50px rgba(255,255,255,0.4);
+            }
+        }
+        >div:nth-child(even){
+            margin:-35px -22px 0 22px;
+            >div>div{
+                box-shadow:inset 25px 0 50px rgba(255,255,255,0.4);
+            }
+        }           
+    }
+    .curtain-right{
+        >div:nth-child(odd){
+            margin:-35px -40px 0 40px;
+            >div>div{
+                background:linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.7) 60%, $t 100%);
+            }
+        }
+        >div:nth-child(even){
+            margin:-35px 20px 0 -22px;
+        }
+    }
+}
+.hero img{
+    max-width:100%;
+    display:block;
+    margin:0 auto;
+}
+.spacer{
+    display:none;
+}
+
+@media screen and (min-width: $narrow){
+    .hero{
+        margin-bottom:-47px;
+        background:$wash;
+        border-radius:0 0 50% 50% / 0 0 12px 12px;
+        box-shadow:0 1px 3px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(255,255,255,0.6);
+    
+        >div{
+            padding:0;
+        }
+        
+        img{
+            box-shadow:0 0 20px 10px #aaa;
+        }
+    }
+}

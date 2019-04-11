@@ -1,0 +1,6 @@
+#{% unless include.h1 %}###{% endunless %} {{site.data.wargear.SupportSystems[include.item].Name}}
+{% if include.lore %}
+*{{site.data.wargear.Lore[include.item]}}*
+{% endif %}
+{% include pointvalue.html item=include.item %}
+{{site.data.wargear.SupportSystems[include.item].Description}}

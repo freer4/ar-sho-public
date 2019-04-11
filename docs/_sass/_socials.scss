@@ -1,0 +1,76 @@
+.socials{
+  >a{
+    display:block;
+    float:left;
+    overflow: hidden;
+    visibility: hidden;
+    transform: rotate(120deg);
+    text-align:center;
+    width: 46px;
+    height: 41px;
+    margin: 0 0 4px;
+    cursor:pointer;
+    text-decoration:none;
+
+    >span{
+      display:block;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-60deg);
+
+      >span{
+        content:"";
+        display:block;
+        width: 100%;
+        height: 100%;
+        visibility: visible;
+        transform: rotate(-60deg);
+        white-space:nowrap;
+
+        >span{
+          display:inline-block;
+          vertical-align:middle;
+          white-space:normal;
+          padding:0 5px;
+
+        }
+      }
+      >span::after{
+        content:"";
+        display:inline-block;
+        vertical-align:middle;
+        height:100%;
+        width:0;
+
+      }
+    }
+  }
+  >a:nth-child(even){
+    margin:25px -3px 0px;
+  }
+
+  a.facebook>span>span,
+  a.youtube>span>span,
+  a.twitter>span>span{
+      background-image: url(/assets/images/smico.png);
+      background-size: 350px;
+      background-position-x: -21px;
+      background-position-y: -7px;
+      text-indent:50px;
+  }
+  a.twitter>span>span{
+      background-position-x: -86px;
+  }
+  a.youtube>span>span{
+      background-position-x: -85px;
+      background-position-y: -141px;
+  }
+  a.patreon>span>span{
+      font-size:30px;
+      font-family:Gugi;
+      color:$nvrt;
+      background:$fill;
+      line-height:37px;
+  }
+}

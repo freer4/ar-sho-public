@@ -1,0 +1,106 @@
+{
+ "Weapons": {
+  "BurstRailRifle": { "Weapon": "Burst Rail Rifle",                  "Range": "30\"",  "Type":"Rapid Fire", "Shots": "D3","S": "7",  "AP": "-3", "D": "D3", "Abilities": "On a wound roll of 6+ the target unit suffers one mortal wound in addition to the normal damage."},
+  "GravlanceH":     { "Weapon": "Gravlance",                         "Range": "6\"",   "Type":"Assault",    "Shots": "4", "S": "8",  "AP": "-1", "D": "D3", "Abilities": "On a wound roll of 6+ this weapon deals D6 damage instead of its normal profile. Used with 4 or more wounds remaining."},
+  "GravlanceL":     { "Weapon": "Gravlance (low output)",            "Range": "6\"",   "Type":"Assault",    "Shots": "2", "S": "8",  "AP": "-1", "D": "D3", "Abilities": "On a wound roll of 6+ this weapon deals D6 damage instead of its normal profile. Used with 3 or fewer wounds remaining."},
+  "GravLash":       { "Weapon": "Gravity Lash",                      "Range": "Melee", "Type":"Melee",      "Shots": "0", "S": "U",  "AP": "0",  "D": "1",  "Abilities": "Any enemy unit wounded by this weapon reduces its movement distance by half in its next movement phase."},
+  "Karvesa":        { "Weapon": "Kar'vesa",                          "Range": "Melee", "Type":"Melee",      "Shots": "0", "S": "x2", "AP": "-1", "D": "1",  "Abilities": "Whenever Lynunan lands 3 or more wounds in one fight phase against a unit, the target unit suffers a mortal wound in addition to the normal damage."},
+  "LightRailRifle": { "Weapon": "Light Rail Rifle",                  "Range": "30\"",  "Type":"Rapid Fire", "Shots": "1", "S": "5",  "AP": "-1", "D": "1",  "Abilities": "Wound rolls of 6+ with this weapon add 1 to their AP characteristic."},
+  "NeutronRound":   { "Weapon": "Heavy Rail Rifle (Neutron Round)",  "Range": "60\"",  "Type":"Heavy",      "Shots": "1", "S": "8",  "AP": "-4", "D": "D6", "Abilities": "On a wound roll of 4+ instead of the normal weapon damage the target unit suffers 3D3 mortal wounds. Each unit within 3\" of the target unit suffers 1 mortal wound."},
+  "PlasmaRifle":    { "Weapon": "Plasma Rifle (Arsho)",              "Range": "24\"",  "Type":"Rapid Fire", "Shots": "1", "S": "6",  "AP": "-1", "D": "2",  "Abilities": "-"},
+
+  "SuppressionProjectorB":{ "Weapon": "Suppression Projector (Burst)","Range": "24\"",  "Type":"Assault", "Shots": "5D6", "S": "4",  "AP": "0", "D": "1",  "Abilities": "-"},
+  "SuppressionProjectorS":{ "Weapon": "Suppression Projector (Salvo)","Range": "24\"",  "Type":"Assault", "Shots": "5",   "S": "4",  "AP": "0", "D": "D3", "Abilities": "Each successful hit roll with this weapon increases its strength characteristic by 1 for this phase."},
+  
+  "AFP":         { "Weapon": "Airbursting Fragmentation Projector",   "Range": "C", "Type":"C", "Shots": "C", "S": "C", "AP": "C", "D": "C", "Abilities": "See 8th Edition Tau Codex"},
+  "Equalizers":  { "Weapon": "Equalizers",   "Range": "C", "Type":"C", "Shots": "C", "S": "C", "AP": "C", "D": "C", "Abilities": "See 8th Edition Tau Codex"},
+  "MissilePod":  { "Weapon": "Missile Pod",  "Range": "C", "Type":"C", "Shots": "C", "S": "C", "AP": "C", "D": "C", "Abilities": "See 8th Edition Tau Codex"},
+  "PulsePistol": { "Weapon": "Pulse Pistol", "Range": "C", "Type":"C", "Shots": "C", "S": "C", "AP": "C", "D": "C", "Abilities": "See 8th Edition Tau Codex"}
+ },
+ "Models": {
+  "Aunsahe":   { "Unit": "Aun'Sahe",   "M": "8\"",  "WS": "2+", "BS": "4+", "S": "3", "T": "3", "W": "5", "A": "4", "Ld": "9", "Save": "4+" },
+  "Lynunan":   { "Unit": "Lynu'nan",   "M": "6\"",  "WS": "2+", "BS": "2+", "S": "3", "T": "3", "W": "5", "A": "4", "Ld": "9", "Save": "4+" },
+  "OKakaushi": { "Unit": "O'Kakaushi", "M": "20\"", "WS": "2+", "BS": "2+", "S": "5", "T": "5", "W": "6", "A": "4", "Ld": "9", "Save": "3+" },
+
+  "Gravshock":    { "Unit": "XV-892 Gravshock Shas'ui",   "M": "10\"","WS": "5+", "BS": "4+", "S": "5", "T": "5", "W": "5",  "A": "2", "Ld": "7", "Save": "3+" },
+  "GravshockV":   { "Unit": "XV-892 Gravshock Shas'vre",  "M": "10\"","WS": "5+", "BS": "4+", "S": "5", "T": "5", "W": "5",  "A": "2", "Ld": "8", "Save": "3+" },
+  "Hammerfall":   { "Unit": "XV-88/0 Hammerfall Shas'ui", "M": "8\"", "WS": "5+", "BS": "4+", "S": "5", "T": "5", "W": "3",  "A": "1", "Ld": "7", "Save": "3+" },
+  "HammerfallV":  { "Unit": "XV-88/0 Hammerfall Shas'vre","M": "8\"", "WS": "5+", "BS": "4+", "S": "5", "T": "5", "W": "3",  "A": "2", "Ld": "8", "Save": "3+" },
+  "Thunderstrike":{ "Unit": "XV-102 Thunderstrike",       "M": "8\"", "WS": "5+", "BS": "4+", "S": "6", "T": "7", "W": "18", "A": "4", "Ld": "9", "Save": "2+" },
+
+  "MV52ShieldDrone": { "Unit": "MV52 Shield Drone", "M": "C",    "WS": "C",  "BS": "C",  "S": "C", "T": "C", "W": "C", "A": "C", "Ld": "C", "Save": "C"  }
+ },
+ "Abilities": {
+  "Dakranka": { "Name": "Dakran'ka", "Description": "When an AR’SHO SEPT unit within 6” of Aun’Sahe declares a charge, they may fire their pistols at one of their charge targets as if it were their shooting phase. These attacks are resolved before overwatch is declared." },
+  "EtarosBurning": { "Name": "E'taro's Burning", "Description": "When this model makes a wound roll of 5+ that shot adds 1 to its AP characteristic - for example, AP -1 becomes AP -2. In addition, add 1 to the attack characteristic of this model." },
+  "LighteaterShieldArray": { "Name": "Lighteater Shield Array", "Description": "O'Kakaushi has a 4+ invulnerable save. \n\n At the beginning of your movement phase you may activate the Lighteater Shield Array. O'Kakaushi gains +2 to his toughness characteristic, adds +2 strength to his Burst Rail Rifle, and loses the invunerable save of the Lighteater Shield Array until it is deactivated. \n\n At the end of your next movement phase the Lighteater Shield Array deactivates. Upon deactivation, for each model within 4\" of O'Kakaushi, roll 1 D6 for each Lighteater Shield Charge. For each 2+, that model must subtract 1 from its hit rolls until the end of its next turn. For each 5+, that model suffers 1D3 mortal wounds. \n\n The Lighteater Sheild Array automatically deactivates if O'Kakaushi is killed."},
+  "VolleyFire": { "Name": "Volley Fire", "Description": "Models in AR'SHO SEPT units within 6\" of a friendly **Cadre Fireblade** may fire an extra shot with pulse pistols, pulse carbines, pulse rifles, and light rail rifles when shooting at a target within half the weapon's range."},
+  "MasterOfGravity": {"Name": "Master of Gravity", "Description": "When this unit declares a charge, roll 2D6 and discard the lower outcome. Any enemy unit that charges this unit must subtract 1 from their charge rolls."},
+  "ObjectsInMotion": {"Name": "Object in Motion",  "Description": "This model adds +1 to its weapons' strength characteristic if it moved this turn. It adds an additional +1 to its weapons' strength characteristic if it advanced or charged this turn."},
+  "PreciousMetals":  {"Name": "Precious Metals", "Description" : "Due to the high quantity of Iridum needed to manufacture the Gravlances, this battlesuit is in limited production. Only one unit may be taken per detachment."}
+ },
+ "SupportSystems": {
+  "GravPack": {"Name": "Personal Gravjet Pack", "Description": "Any model equipped with a Gravpack increases its move characterist to 8\" and gains the Fly and Jetpack keywords."},
+  "MarkerlightAnalysisSystem": { "Name": "Markerlight Analysis System", "Description": "A model equipped with a markerlight analysis system treats any unit affected by any number of markerlights as though it had three additional markerlight counters."},
+  "TwinLinkedOptimizer": {"Name": "Twin-Linked Optimizer", "Description":"A model equipped two or more of the same ranged weapon rerolls misses for those weapons when shooting at a target within half their range."}
+ },
+ "Stratagems":{
+  "NeutronRounds":{"Name":"Neutron Round", "CP":"2", "Description":"Before firing, you may designate one XV-88 Broadside model to fire the [Heavy Rail Rifle (Neutron Round)](/codex/Wargear/Neutron_Round.html) this turn in place of its Heavy Rail Rifle weapon."},
+  "GravBurst":    {"Name":"Gravity Burst", "CP":"1", "Description":"When an enemy unit declares a charge against one of your units with the Fly keyword, you may use this strategem to subtract 1d6 from each charge made against for the remainder of this phase. This unit loses the fly keyword until the end of its next movement phase."} 
+ },
+ "Points": { 
+  "BurstRailRifle":  "41",
+  "GravlanceH":      "0",
+  "GravlanceL":      "0",
+  "GravLash":        "50",
+  "Karvesa":         "0",
+  "LightRailRifle":  "3",
+  "NeutronRound":    "0",
+  "PlasmaRifle":     "14",
+
+  "AFP":  "C",
+  "Equalizers":  "C",
+  "MissilePod":  "C",
+  "PulsePistol": "C",
+  
+  "Aunsahe":   "65",
+  "Lynunan":   "90",
+  "OKakaushi": "210",
+
+  "Gravshock":   "55",
+  "Hammerfall":   "42",
+  "Thunderstrike": "510",
+ 
+  "MV52ShieldDrone" : "C",
+  
+  "GravPack":                  "0",
+  "MarkerlightAnalysisSystem": "10",
+  "TwinLinkedOptimizer":       "12"
+ },
+ "PointsInclusive": [
+  "Aunsahe",
+  "Lynunan",
+  "OKakaushi"
+ ],
+ "LeftAlign": [
+  "Abilities",
+  "Weapon",
+  "Type",
+  "Unit",
+  "Name",
+  "Description"
+ ], 
+ "Lore": {
+  "GravPack":              "The Ar'sho research into advanced gravity drives has allowed them to create a gravity lift and booster jet combination efficient enough to be powered by a personal generator.",
+  "Gravlance":             "Interactive gravity drives produce a substantial sustained force at short range. One part, the lash, is fitted to the weapons platform; the other, too large to be fitted to standard ammunition, is fitted to an iridium-hardened reusable lance.",
+  "Dakranka":              "The brave ending blow",
+  "Karvesa":               "Crafted from her prized Equalizer, Lynunan had the weapon tailored to the Fire Caste martial combat she has long mastered. It is now integrated into her armor, resting in the palm of her hand. Its force-multiplying properties deliver crushing blows even to armored opponents.",
+  "EtarosBurning":         "Years of intense combat and training under Shas'nel E'taro Lynu'nan have honed this veteran unit to the pinnacle of Tau doctrine in ranged supremacy and the fire caste martial arts.",
+  "LighteaterShieldArray": "The experimental shielding of the Darkstar can invert its normal functionality, absorbing many forms of energy - including light, which earned it the Lighteater name and the Darkstar its distinctive appearance while active.",
+  "TwinLinkedOptimizer":   "Improvements to the age-old twin-linked weapons systems allow for an integrated augment tuned for fire warriors who prefer to focus on a single weapon type."
+ },
+ "Linked": {
+  "BurstRailRifle" : "true",
+  "LightRailRifle" : "true"
+ }
+}

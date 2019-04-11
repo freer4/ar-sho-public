@@ -1,0 +1,117 @@
+<nav class="hexnav">
+    <ul>
+        <li>
+            <a href="/codex/"><span><span><span>Codex</span></span></span></a>
+            <span><span><span><span>Codex</span></span></span></span>
+            <ul>
+            {% assign category = '' %}
+            {% assign lastitem = '' %}
+            {% for item in site.codex %}
+                {% assign splitted = item.relative_path  | split: "/" %}
+                {% assign lastitem = splitted[1] %}
+                {% if category != splitted[1] %}{% unless category contains ".md" %}
+                    {% unless category == "" %}
+                    </li>
+                </ul>
+            </li>
+                    {% endunless %}
+            <li>
+                {% unless splitted[1] contains ".md" %}
+                <span><span><span><span>{{splitted[1]}}</span></span></span></span>
+                <ul>
+                    <li>
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                    {% endunless %}                           
+                {% endunless %}{% endif %}
+                {% if category == splitted[1] or splitted[1] contains ".md" %}
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                {% endif %}
+                {% assign category = splitted[1] %}
+            {% endfor %}
+            {% if lastitem contains ".md" %}
+                </li>
+            {% else %}
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            </ul>
+        </li><li>
+            <a href="/stories/"><span><span><span>Stories</span></span></span></a>
+            <span><span><span><span>Stories</span></span></span></span>
+            <ul>
+            {% assign category = '' %}
+            {% assign lastitem = '' %}
+            {% for item in site.stories %}
+                {% assign splitted = item.relative_path  | split: "/" %}
+                {% assign lastitem = splitted[1] %}
+                {% if category != splitted[1] %}{% unless category contains ".md" %}
+                    {% unless category == "" %}
+                    </li>
+                </ul>
+            </li>
+                    {% endunless %}
+            <li>
+                {% unless splitted[1] contains ".md" %}
+                <span><span><span><span>{{splitted[1]}}</span></span></span></span>
+                <ul>
+                    <li>
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                    {% endunless %}                           
+                {% endunless %}{% endif %}
+                {% if category == splitted[1] or splitted[1] contains ".md" %}
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                {% endif %}
+                {% assign category = splitted[1] %}
+            {% endfor %}
+            {% if lastitem contains ".md" %}
+                </li>
+            {% else %}
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            </ul>
+        </li><li>
+            <span></span>
+        </li><li>
+            <a href="/references/"><span><span><span>Info &amp; Tools</span></span></span></a>
+        </li><li>
+            <a class="blognav" href="/book-blog/"><span><span><span>Blog</span></span></span></a>
+            <span><span><span><span>Blog</span></span></span></span>
+            <ul>
+            {% assign category = '' %}
+            {% assign lastitem = '' %}
+            {% for item in site.categories %}
+                {% assign splitted = item.relative_path  | split: "/" %}
+                {% assign lastitem = splitted[1] %}
+                {% if category != splitted[1] %}{% unless category contains ".md" %}
+                    {% unless category == "" %}
+                    </li>
+                </ul>
+            </li>
+                    {% endunless %}
+            <li>
+                {% unless splitted[1] contains ".md" %}
+                <span><span><span><span>{{splitted[1]}}</span></span></span></span>
+                <ul>
+                    <li>
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                    {% endunless %}                           
+                {% endunless %}{% endif %}
+                {% if category == splitted[1] or splitted[1] contains ".md" %}
+                        <a href="{{ item.url }}"><span><span><span>{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</span></span></span></a>
+                {% endif %}
+                {% assign category = splitted[1] %}
+            {% endfor %}
+            {% if lastitem contains ".md" %}
+                </li>
+            {% else %}
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            </ul>
+        </li>
+    </ul>
+</nav>

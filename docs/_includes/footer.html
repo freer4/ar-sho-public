@@ -1,0 +1,68 @@
+<footer>
+    <div class="wrapper">
+        {% include socials.html %}
+        <div class="footnav">
+            <div class="footnav-col">
+                <h3><a href="/codex/">Codex</a></h3>
+                {% assign category = '' %}
+                {% for item in site.codex %}
+                  {% assign splitted = item.relative_path  | split: "/" %}
+                  {% assign this_category = splitted[1] %}
+                  {% if this_category != "readme.md" %}
+                    {% if category != this_category %}
+                      {% assign category = this_category %}
+                 <h4>{{category}}</h4>
+                    {% endif %}
+                <a href="{{ item.url }}">{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</a>
+                  {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="footnav-col">
+                <h3><a href="/stories/">Stories</a></h3>
+                {% assign category = '' %}
+                {% for item in site.stories %}
+                  {% assign splitted = item.relative_path  | split: "/" %}
+                  {% assign this_category = splitted[1] %}
+                  {% if this_category != "readme.md" %}
+                    {% if category != this_category %}
+                      {% assign category = this_category %}
+                 <h4>{{category}}</h4>
+                    {% endif %}
+                <a href="{{ item.url }}">{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</a>
+                  {% endif %}
+                {% endfor %}
+                
+            </div>
+
+            <div class="footnav-col">
+                <h3><a href="/references/">References</a></h3>
+                {% assign category = '' %}
+                {% for item in site.references %}
+                  {% assign splitted = item.relative_path  | split: "/" %}
+                  {% assign this_category = splitted[1] %}
+                  {% if this_category != "readme.md" %}
+                    {% if category != this_category %}
+                      {% assign category = this_category %}
+                 <h4>{{category}}</h4>
+                    {% endif %}
+                <a href="{{ item.url }}">{% if item.navtext %}{{item.navtext}}{% else %}{{item.title}}{% endif %}</a>
+                  {% endif %}
+                {% endfor %}
+            </div>
+            
+            <div class="footnav-col">
+                <h3><a href="/disclaimers/">Disclaimers</a></h3>
+                <a>Privacy Policy</a>
+                <a>Press Releases</a>
+                <a>Contact Us</a>
+            </div>
+           
+
+        </div>
+        <br />
+        <p class="callout">This is an unofficial, fan-made sept. Enjoy accordingly!</p>
+        <p>Warhammer, Warhammer 40K, and all related intellectual properties belong entirely to <a href="https://www.games-workshop.com/" target="_blank">Games Workshop</a>. This page is not endorsed by or in any way affiliated with Games Workshop or its subsidiaries. This is purely a fan-based extention of their work. If anyone finds this in violation of anything please just let us know at <a href="mailto:arshoenclaves@gmail.com">arshoenclaves@gmail.com</a> and we'll fix it. We're fans, not lawyers. <a href="/disclaimers/">Full legal disclaimer here.</a></p>
+        <p>Home-page hero image courtesy of <a href="https://www.facebook.com/Art-by-Felix-Bauer-Schlichtegroll-177786456300551/">Felix Bauer-Schlichtegroll</a>. Go support an artist!</p>
+    </div>
+</footer>
