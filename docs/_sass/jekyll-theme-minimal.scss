@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600|Gugi');
+@import 'globals';
+@import 'basics';
+@import 'header';
+@import 'hexnav';
+@import 'hero';
+@import 'content';
+@import 'sidebar';
+@import 'socials';
+@import 'footer';
+@import 'sharers';
+@import 'statcalc';
+
+/*
+    #ede9ce
+    #c7ad88
+    #64706c
+    #935347
+*/
+/*Presets*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+}
+
+body {
+    font-family:'Work Sans', Helvetica, Arial, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    color: $text;
+    font-weight: 400;
+    background:$bgrd;
+    background:
+      radial-gradient(circle farthest-side at 0% 50%, $w 23.5%,  $t 24%)  21px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, $b 24%,    $t 25%)  19px 30px,
+      linear-gradient(        $w 15%, $t 18%, $t 85%, $w 86%)0 0,
+      linear-gradient(150deg, $w 22%, $b 25%, $t 28%, $t 72%, $b 75%, $w 78%) 0 0,
+      linear-gradient(30deg,  $w 22%, $b 25%, $t 28%, $t 72%, $b 75%, $w 78%) 0 0,
+      linear-gradient(90deg,  $b 3%,  $w 4%,  $w 97%, $b 100%)0 0 $w;
+    background-size:40px 60px;
+}
+
+
+.clr::after,
+.wrapper::after,
+section::after, 
+header::after,
+header h1::after,
+footer::after,
+footer .hexnav.socials::after{
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.accessible{
+    display:block;
+    height:0;
+    overflow:hidden;
+}
+
+/*BASIC ELEMENTS*/
+/*common stuff*/
+
+
+/*Image displays*/
+.image-wrap {
+    margin: 0 -5px 27px;
+    text-align:center;
+    position:relative;
+}
+
+.image-wrap.halved {
+    float: left;
+    max-width: 50%;
+    margin: 0 0.75em 0.75em 0;
+}
+.image-treat{
+    display:table;
+    padding:12px 0 0;
+    text-align:left;
+}
+.image-edge{
+    position:relative;
+    display:inline-block;
+    background:$wash;
+    padding:0 0 9px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.5), inset 0 -2px 3px rgba(255,255,255,0.6);
+    border-radius:0 0 50% 50% / 0 0 4px 4px;
+}
+
+.image-wrap img {
+    display: block;
+    max-width:100%;
+    margin:0 auto;
+}
+
+.image-wrap figcaption{
+    padding: 4px 5px 0;
+    display:table-caption;
+    caption-side: bottom;
+    color:$text;
+    max-width: 560px;
+    margin: 0 auto;
+}
+.image-wrap a{
+    color:$text;
+    display:block;
+}
+
+/*Form elements*/
+input[type="text"]{
+    border:1px solid $scnd;
+    padding:2px 5px;
+}
+select{
+    border:1px solid $scnd;
+}
+
+/*Data tables*/
+h5 {
+    font-size: 18px;
+    font-weight: normal;
+    background: $scnd;
+    color: $nvrt;
+    padding: 2px 5px;
+    text-transform: uppercase;
+    border-top: 1px solid $scnd;
+    margin:0 -5px;
+    box-shadow:0 1px 5px rgba(0,0,0,0.7);
+}
+
+table {
+    min-width: 100%;
+    width:calc(100% + 10px);
+    border-collapse: collapse;
+    border: 1px solid $scnd;
+    border-width:1px 0;
+    margin:0 -5px 27px;
+    font-size: 13px;
+    background:#fff;
+    box-shadow:0 1px 5px rgba(0,0,0,0.7);
+}
+
+th, td {
+    text-align: center;
+    padding: 2px 5px;
+}
+
+th {
+    color: $text;
+    background: $wash;
+    text-transform: uppercase;
+    font-weight:normal;
+}
+tr.hidden{
+    display:none;
+}
+tr:nth-child(even),
+tr.stripe{
+    background: #fbf8ff;
+}
+tr.stripe+tr{
+    background: #fff;
+}
+
+
+/*PAGE ELEMENTS*/
+/*Header styles*/
+
+.social-feed{
+    padding:30px 0 0;
+}
+
+
+.bloglist{
+    margin-bottom:27px;
+}
+.bloglist p, .bloglist h3{
+    margin:0;
+}
+.bloglist small{
+    font-size:13px;
+}
+.bloglist a{
+    text-decoration:none;
+}
+
+
+
+/*facebook force*/
+body .fb_iframe_widget {
+    display: block;
+}
+
+body .fb_iframe_widget span {
+    display: block;
+    width: 100% !important;
+}
+
+body .fb_iframe_widget iframe {
+    width: 100% !important;
+}
+
+
+
+@media print, screen and (min-width: $narrow) {
+    .mobi{
+        display:none !important;
+    }
+    body{
+        font-size:18px;
+        line-height:1.6;
+    }
+    .image-wrap{
+        width:115%;
+        margin:0 -15% 0 -5px;
+        position:relative;
+        z-index:5;
+    }    
+    .image-wrap::before{
+        content:"";
+        background: #fff;
+        position: absolute;
+        left: 0;
+        right: 12.2%;
+        top: 0;
+        bottom: 0;
+        border-left: 1px solid $scnd;
+        border-right: 1px solid $scnd;
+    }
+    .image-treat{
+        display:table;
+        max-width:100%;
+        margin:0 auto;
+        padding:12px 1px 0;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+    h5{
+        width:115%;
+        margin:0 -15% 0 -5px;
+    }
+    table{
+        width:115%;
+        margin:0 -15% 27px -5px;
+        border-width:1px;
+        font-size:14px;
+        position:relative;
+        z-index:5;
+    }
+    
+    header{
+        border-radius:0 0 50% 50% / 0 0 8px 8px;
+    }
+    header .wrapper{
+        background:linear-gradient(90deg, $t 0%, $wwsh 10%, $wwsh 90%, $t 100%);
+        padding:0 10%;
+    }
+    a.symbol span {
+        display: inline-block;
+    }
+    .boxer a{
+        font-size:inherit;
+    }
+    
+    body>section{
+        padding:49px 0 0;
+    }
+    
+    
+    
+}
+@media screen and (min-width: $full) {
+    body {
+        word-wrap: break-word;
+    }
+    
+    .image-wrap, table{
+        width:130%;
+        margin:0 -15%;
+    }
+    
+    .image-wrap::before{
+        left: 11.55%;
+        right: 11.55%;
+    }
+    
+    h5{
+        width:130%;
+        margin:0 -15%;
+    }
+}
+
+@media screen and (min-width:0\0) and (min-resolution: +72dpi) {
+    h1::before{
+        background-size:48px 48px;
+        background-position:0 0;
+        background-color:$bgrd;
+    }
+}

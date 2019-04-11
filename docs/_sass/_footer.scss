@@ -1,0 +1,67 @@
+
+footer{
+    position:relative;
+    z-index:90;
+    font-size:13px;
+    line-height:22px;
+    color:#000;
+    background: $wash;
+    border-radius:50% 50% 0 0 / 8px 8px 0 0;
+    box-shadow:0 1px 3px rgba(0,0,0,0.7), inset 0 2px 3px rgba(255,255,255,0.6);
+    clear:both;
+    overflow:hidden;
+}
+footer .wrapper{
+    padding:2em 5px;
+    position:relative;
+    max-width: 1400px;
+    margin:0 auto;
+    background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.95) 10%, rgba(255,255,255,0.95) 90%, transparent 100%);
+}
+.footnav{
+    display:block;
+    clear:both;
+}
+.footnav h3{
+    margin:0;
+}
+.footnav a{
+    display:block;
+    padding:0 0 0 0.5em;
+    text-decoration:none;
+}
+.footnav h3 a{
+    padding:0;
+    font-weight:bold;
+}
+.footnav h4{
+    margin:10px 0 0;
+}
+.footnav h3+h4{
+    margin:0;
+}
+
+@media screen and (min-width: 640px){
+    .footnav{
+        display:-ms-grid;
+        display:grid;
+        -ms-grid-columns:50% 50%;
+        grid-template-columns:50% 50%;
+    }
+}
+
+@media screen and (min-width: $narrow){
+
+    footer .wrapper{
+        background:linear-gradient(90deg, $t 0%, $wwsh 10%, $wwsh 90%, $t 100%);
+        padding:2em 10%;
+    }
+    .footnav{
+        -ms-grid-columns:25% 25% 25% 25%;
+        grid-template-columns:25% 25% 25% 25%;
+    }
+}
+
+@media screen and (min-width: $full){
+  
+}

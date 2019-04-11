@@ -1,0 +1,17 @@
+[
+{
+      "title" : "Stories",
+      "relative_path" : "home/stories.md",
+      "url" : "/stories/"
+      },
+{ 
+      "title" : "Codex",
+      "relative_path" : "home/codex.md",
+      "url" : "/codex/"
+      },
+{ 
+      "title" : "Blog",
+      "relative_path" : "home/blog.md",
+      "url" : "/book-blog/"
+      }
+]

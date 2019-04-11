@@ -1,0 +1,7 @@
+#{% unless include.h1 %}###{% endunless %} {{site.data.wargear.Stratagems[include.item].Name}}
+{% if include.lore %}
+*{{site.data.wargear.Lore[include.item]}}*
+{% endif %}
+**{{site.data.wargear.Stratagems[include.item].CP}}CP**
+
+{{site.data.wargear.Stratagems[include.item].Description}}

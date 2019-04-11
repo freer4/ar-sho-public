@@ -1,0 +1,76 @@
+theme: jekyll-theme-minimal
+title: "Ar'sho Enclave"
+collections:
+  codex:
+    output: true
+  stories: 
+    output: true
+  references: 
+    output: true
+  categories:
+    output: true
+    
+defaults:
+  - scope:
+      path: ""
+      type: "codex"
+    values:
+      layout: "codex"
+      subnav: "codex"
+      discuss: true
+      image: "/assets/images/greatergood_stuarthughe.jpg"
+      date: "2018-05-01 06:00:00 -0600"
+  - scope:
+      path: ""
+      type: "stories"
+    values:
+      layout: "stories"
+      subnav: "stories"
+      discuss: true
+      date: "2018-05-01 06:00:00 -0600"
+  - scope:
+      path: ""
+      type: "references"
+    values:
+      layout: "codex"
+      subnav: "references"
+      discuss: true
+      image: "/assets/images/tau-water-caste-envoy.jpg"
+  - scope:
+      path: ""
+      type: "categories"
+    values:
+      layout: "posts"
+      discuss: false
+      image: "/assets/images/tau-water-caste-envoy.jpg"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "posts"
+      subnav: "posts"
+      discuss: true
+      image: "/assets/images/tau-water-caste-envoy.jpg"
+  - scope:
+      path: ""
+    values: 
+      subnav: "site"
+      image: "/assets/images/arsho-sept-symbol.png"
+
+facebook:
+  app_id: 423640514775670
+  type: article
+  
+social:
+  name: Ar'sho Enclave
+  links:
+    - https://twitter.com/ArshoEnclave
+    - https://www.facebook.com/Arsho-Enclave-171552993545731/
+    - https://www.youtube.com/channel/UCgsIfkqOQQRpOUDAhclkdsw
+    - https://www.patreon.com/arshoenclave
+    
+plugins:
+  - jekyll-sitemap
+  - jekyll-redirect-from
+  
+verbose:  true

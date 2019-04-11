@@ -1,0 +1,189 @@
+$w2: #EEE;
+
+.content{
+  padding:100px 5px 27px;
+  background:$bgrd;
+  background:linear-gradient($t 0%, $w 100px);
+  position:relative;
+  
+  .hazard{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0)), repeating-linear-gradient(45deg, #000, #000 10px, #ffeb00 10px, #ffeb00 20px) !important;
+    font-weight:800;
+    text-transform:uppercase;
+    color:#fff;
+    text-shadow:0 0 2px #000,0 0 2px #000,0 0 2px #000;
+    text-align:center;
+  }
+  .hazard+p{
+    color:$fill;
+    text-align:center;
+    padding-top:5px;
+  }
+  
+  ul li, ol li{
+    padding-bottom:10px;
+    padding-left:20px;
+    position:relative;
+  }
+  img{
+    max-width:100%;
+  }
+}
+.hero ~ .content{
+  padding-top:27px;
+  background:linear-gradient($t 0%, $w 54px);
+}
+
+.content::after{
+  content:"";
+  box-sizing:border-box;
+  display:block;
+  clear:both;
+  height:0;
+  width:100%;
+  border-style:solid;
+  border-width:16px 14px 0;
+  border-color:$scnd $t $t $t;
+}
+
+@media screen and (min-width: $narrow){
+  .content, 
+  .hero ~ .content{
+    background:none;
+    float:left;
+    width:520px;
+    padding:0;
+    margin:130px 0 54px;
+    border-top:1px solid $scnd;
+  }
+  .content{
+    p, h1, h2, h3, h4, li, .bloglist{
+      position:relative;
+      background:$bgrd;
+      padding-left:5px;
+      padding-right:24px;
+      border-left:1px solid $scnd;
+      border-right:1px solid $scnd;
+    }
+    
+    h2{
+      padding:0 0 5px;
+      border:7px solid $scnd;
+      border-color:$scnd $t;
+      background-clip: padding-box;
+      margin:-1px 0;
+      z-index:2;
+      box-shadow:inset -1px 0 0 $scnd,inset 1px 0 0 $scnd;
+    }
+    h2::after,
+    h2::before,
+    ul::after,
+    ul::before,
+    ol::after,
+    ol::before{
+      content:"";
+      position:absolute;
+      display:block;
+      height:0;
+      top:-7px;
+      left:-6px;
+      right:-6px;
+      border-style:solid;
+      border-width:7px 7px 0;
+      border-color:$w $t $t $t;
+    }
+    h2::after{
+      border-width:0 7px 7px;
+      border-color:$t $t $w $t;
+      top:auto;
+      bottom:-7px;
+    }
+    
+    p:nth-child(odd)::after,
+    p:nth-child(odd)::before{
+      content:"";
+      position:absolute;
+      display:block;
+      width:0;
+      border-style:solid;
+      top:0;
+      bottom:0;
+      left:100%;
+      border-width:5px 0 5px 6px;
+      border-color:$t $t $t $scnd;
+    }
+    p:nth-child(odd)::after{
+      margin:0 0 0 -1px;
+      border-color:$t $t $t $w;
+    }
+    
+    ul, ol{
+      padding:0;
+      border-style:solid;
+      border-width:12px 0 12px 12px;
+      border-color:$scnd $t $scnd $t;
+      position:relative;
+      list-style-type:none;
+    }
+    
+    ul::after,
+    ul::before,
+    ol::after,
+    ol::before{
+      top:-12px;
+      left:-11px;
+      right:1px;
+      border-width:12px 0 0 12px;
+      border-color:$w $t $t $t;
+    }
+    ul::after,
+    ol::after{
+      border-width:0 0 12px 12px;
+      border-color:$t $t $w $t;
+      top:auto;
+      bottom:-12px;
+    }
+    ul li::before{
+      content:".";
+      display:inline-block;
+      font-size:48px;
+      width:0;
+      line-height:5px;
+      vertical-align:middle;
+      margin:-30px 18px 0 -18px;
+      color:$fill;
+    }
+    
+    .fb-comments{
+      background:$bgrd;
+      border-left:1px solid $scnd;
+      border-right:1px solid $scnd;
+    }
+  }
+    
+  .hero ~ .content{
+      margin-top:27px;
+  }  
+}
+@media screen and (min-width: $full){
+  .content, 
+  .hero ~ .content{
+    left: 45%;
+    width:59%;
+    max-width: 640px;    
+    margin: 130px 0 54px -406px;
+  }
+  
+  .content{
+    p, h1, h3, h4, li, .bloglist{
+      padding-left:24px;
+    }
+    h2{
+      padding-left:19px;
+    }
+  }
+  
+  .hero ~ .content{
+    margin-top:-27px;
+  }
+} 

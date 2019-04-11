@@ -1,0 +1,13 @@
+---
+layout: default
+---
+
+<article>
+{% assign splitted = page.relative_path  | split: "/" %}
+{% if splitted[1] != "readme.md" %}
+<h1>{% if page.navtext %}{{page.navtext}}{% else %}{{page.title}}{% endif %}</h1>
+{% endif %}
+{{content}}
+</article>
+{% include socialshares.html %}
+{% include socialdiscuss.html %}

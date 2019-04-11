@@ -1,0 +1,15 @@
+<div class="image-wrap {% if include.halved %} halved{% endif %}">
+    <div class="image-edge">
+        <figure class="image-treat">
+            <img src="/assets/images/{{include.image}}" alt="{{include.alt}}" />
+        {% if include.caption or include.attribution %}
+            <figcaption>
+                {{include.caption}}
+                {% if include.attribution %}
+                <a href="{{link}}" target="_blank">Source: {{include.attribution}}</a>
+                {% endif %}
+            </figcaption>
+        {% endif %}
+        </figure>
+    </div>
+</div>

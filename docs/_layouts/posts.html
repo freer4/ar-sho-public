@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+{{content}}
+<section>{% if page.taglist %}{% assign tag = page.taglist %}{% else %}{% assign tag = false %}{% endif %}
+{% for post in site.posts %}{% if tag == false or post.tags contains tag %}
+<article markdown="1" class="bloglist">
+  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  {% if post.date %}<small>Published on {{ post.date | date: "%-d %B %Y" }}</small>{% endif %}
+  <blockquote cite="{{post.url}}"> {{ post.excerpt | replace: "<p>", "" | truncate: 200 }} </blockquote> 
+  <a href="{{ post.url }}">Read more &gt;</a>
+</article>
+{% endif %}{% endfor %}
+</section>

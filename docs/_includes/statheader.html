@@ -1,0 +1,2 @@
+|{% for val in include.row %} {{val[0]}} |{% endfor %}
+|{% for val in include.row %}:---{% unless site.data.wargear.LeftAlign contains val[0] %}:{% endunless %}|{% endfor %}

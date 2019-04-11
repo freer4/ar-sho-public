@@ -1,0 +1,57 @@
+#calcarea{
+  
+  fieldset{
+    display:inline-block;
+  }
+  label{
+    display:inline-block;
+    vertical-align:bottom;
+    font-size:15px;
+    text-align:center;
+  }
+  select{
+    display:block;
+  }
+  input{
+    display:block;
+    width:36px;
+    text-align:center;
+  }
+  input.namefield{
+  width:80px;
+  }
+  li{
+    padding:0 5px;
+  }
+  li+li label>span{
+    display:none;
+  }
+}
+.info{
+  display:inline-block;
+  position:relative;
+  border-radius:50%;
+  border:1px solid $fill;
+  color:$fill;
+  font-size:13px;
+  height:15px;
+  width:15px;
+  text-align:center;
+  line-height:14px;
+  vertical-align:bottom;
+  margin:0px 0 4px 1px;
+}
+.info>span{
+  position:absolute;
+  display:none;
+  padding:5px;
+  border:1px solid $scnd;
+  width:250px;
+  background:$bgrd;
+  z-index:100;
+  left:100%;
+  top:0;
+}
+.info:hover>span{
+  display:block;
+}

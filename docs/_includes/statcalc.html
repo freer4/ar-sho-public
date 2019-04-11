@@ -1,0 +1,529 @@
+<p><em>GW does not allow officially published stats to be shared, and we neither see nor store any information from this tool - it exists only in your browser.</em></p>
+<script type="text/html" id="calcweapon">
+  <fieldset>
+  	<label>
+  		<input class="namefield" type="text" name="name" value="Weapon1" />
+  	</label>
+    <label class="sc-type">
+      <span>Type<span class="info">?<span>Weapon type. Affects what stats are shown in reports.</span></span></span>
+      <select name="type">
+        <option value="R">Rapid</option>
+        <option value="A">Assault</option>
+        <option value="H">Heavy</option>
+      </select>
+    </label>
+    <label class="sc-type">
+      <span>#<span class="info">?<span>Number of shots. Accepts diceroll formats. I.e.: "2D3"</span></span></span>
+      <input type="text" name="shots" />
+    </label>
+    <label>
+      <span>S<span class="info">?<span>Weapon strength</span></span></span>
+      <input type="text" name="strength" />
+    </label>
+    <label>
+      <span>AP<span class="info">?<span>Weapon armor penetration. Positive or negative does not matter</span></span></span>
+      <input type="text" name="ap" />
+    </label>
+    <label>
+      <span>D<span class="info">?<span>Weapon damage. Accepts diceroll formats. I.e.: "2D3"</span></span></span>
+      <input type="text" name="d" />
+    </label>
+    <label>
+      <span>BS<span class="info">?<span>Firing model's ballistic skill (or weapon skill, if you're testing melee)</span></span></span>
+      <input type="text" name="bs" />
+    </label>
+  </fieldset>
+  <a class="removerow" href="#">&times;</a>
+</script>
+<script type="text/html" id="calctarget">
+  <fieldset>
+  	<label>
+  		<input class="namefield" type="text" name="name" value="Target1" />
+  	</label>
+    <label>
+      <span>T<span class="info">?<span>Target model's toughness (or strength, if you're testing melee)</span></span></span>
+      <input type="text" name="tough" value="4" />
+    </label>
+    <label>
+      <span>A<span class="info">?<span>Target model's armor save</span></span></span>
+      <input type="text" name="save" value="3" />
+    </label>
+    <label>
+      <span>I<span class="info">?<span>Target model's invulnerable save. Blank or 0 for none.</span></span></span>
+      <input type="text" name="invuln" value="0" />
+    </label>
+    <label>
+      <span>FNP<span class="info">?<span>Target model's final damage saves, commonly referred to as "Feel No Pain".</span></span></span>
+      <input type="text" name="fnp" value="0" />
+    </label>
+    <label>
+      <span>W<span class="info">?<span>Target model's wounds</span></span></span>
+      <input type="text" name="wounds" value="2" />
+    </label>
+  </fieldset>
+  <a class="removerow" href="#">&times;</a>
+</script>
+<script type="text/html" id="weaponVsTargets">
+	<h5></h5>
+	<table>
+		<thead>
+			<tr>
+				<th>Target</th>
+				<th></th>
+				<th>Per shot</th>
+				<th>-1BS</th>
+				<th>Per turn</th>
+				<th>-1BS</th>
+				<th>Half range</th>
+				<th>-1BS</th>
+				<th>Shots/kill</th>
+				<th>-1BS</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+</script>
+<form id="calcarea">
+	<ul id="placeweapons"></ul>
+	<p>
+		<a href="#" id="addweapon">+ Add another weapon</a> 
+		<select name="weaponSelect" id="weaponSelect">
+			<option value="Blank" selected="selected">- Blank -</option>
+			{% for wargear in site.data.wargear.Weapons %}{% assign gearid = wargear | first %}{% assign props = wargear | last %}
+			<option value="{{gearid}}">{{props.Weapon}}</option>
+			{% endfor %}
+		</select>
+	</p>
+	<ul id="placetargets"></ul>
+	<p><a href="#" id="addtarget">+ Add another target</a></p>
+	<p><a href="#" id="calculate">Calculate!</a></p>
+</form>
+<div id="weaponVsTargetsReport"></div>
+
+<script type="text/javascript">
+	var weaponProfiles = {
+		"Blank" : { "Weapon" : "Blank", "Type": "Rapid Fire", "Shots": "0", "S": "0", "AP":"0", "D":"0"},
+		{% for wargear in site.data.wargear.Weapons %}
+		"{{ wargear | first }}" : { 
+			{% assign wargearStats = wargear | last %}
+			{% for p in wargearStats %}
+				{% assign wargearPropName = p | first %}
+				{% unless wargearPropName == "Range" or wargearPropName == "Abilities" %}  
+				"{{ wargearPropName }}" : "{{ p | last }}",
+				{% endunless %} 
+			{% endfor %} 
+		},
+		{% endfor %}
+	};
+
+</script>
+<script type="text/javascript">
+	var cnst = {
+		"unsavedText": "unsaved",
+		"inapplicable": "-"
+	}
+	var weaponSelect = document.getElementById('weaponSelect');
+
+	/*Utility functions*/
+	var guid = function() {
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8);
+			return v.toString(16);
+		});
+	};
+
+	var multipleDiceAverage = function(r){
+		var d_arr = r.toLowerCase().split('d');
+		var aggregate = 0;
+		d_arr[0] = parseInt(d_arr[0]);
+		d_arr[1] = parseInt(d_arr[1]);
+		//assume 1D
+		if (!d_arr[0]){
+			d_arr[0] = 1;
+		}
+		//assume D6
+		if (!d_arr[1]){
+			d_arr[1] = 6;
+		}
+
+		//add up all the die face values
+		for (var i = 1, l = d_arr[1] + 1; i<l; i++){
+			aggregate += i;
+		}
+		//divide by number of sides
+		aggregate = aggregate / d_arr[1];
+		//multiply by number of die
+		return aggregate * d_arr[0];
+	};
+	var roundout = function (n, p) {
+		if (typeof p === 'undefined'){
+			p = 1;
+		}
+		p = Math.pow(10, p);
+		return Math.round(n*p)/p;
+	};
+	var rollchance = function(r){
+	    return (7-r)/6;
+	};
+	var woundRoll = function(s, t){
+		s = parseInt(s);
+		t = parseInt(t);
+		//strength equal
+		if (s===t){
+			return 4;
+		}
+		//strength double or greater
+		if (s/2 >= t){
+			return 2;
+		}
+		//strength greater
+		if (s>t){
+			return 3;
+		}
+		//strength half or less
+		if (s <= t/2){
+			return 6;
+		}
+		//strength less
+		if (s < t){
+			return 5;
+		}
+	};
+	var armorSaveRoll = function(ap, sv){
+		ap = parseInt(ap);
+		sv = parseInt(sv);
+		if (sv == 0){
+			return 0;
+		}
+		var s = sv + Math.abs(ap);
+		if (s > 6){
+			return 0;
+		}
+		return s;
+	};
+	var removeRow = function(row, parent){
+		return function(e){
+			e.preventDefault();
+			parent.removeChild(row);
+			return false;
+		}
+	}
+	/*end utilities*/
+
+	var addWeapon = function(weapon){
+		var weaponRow = document.createDocumentFragment();
+		var item = document.createElement('li');
+		var placeWeapons = document.getElementById("placeweapons");
+		item.innerHTML = document.getElementById("calcweapon").innerHTML;
+		weaponRow.appendChild(item);
+
+
+		var weaponInputs = weaponRow.querySelectorAll("input");
+		for (var i in weaponInputs){
+			weaponInputs[i].value = (function(){
+				switch (weaponInputs[i].name){
+					case "name":
+						return weaponProfiles[weaponSelect.value].Weapon;
+						break;
+					case "type": 
+						if (weaponProfiles[weaponSelect.value].Type === "Rapid Fire"){
+							return "R";
+						} else if (weaponProfiles[weaponSelect.value].Type === "Assault"){
+							return "A";
+						} else if (weaponProfiles[weaponSelect.value].Type === "Heavy"){
+							return "H";
+						}
+						break;
+					case "shots": 
+						return weaponProfiles[weaponSelect.value].Shots;
+						break;
+					case "strength": 
+						return weaponProfiles[weaponSelect.value].S;
+						break;
+					case "ap":
+						return weaponProfiles[weaponSelect.value].AP;
+						break;
+					case "d":
+						return weaponProfiles[weaponSelect.value].D;
+						break;
+					case "bs": 
+						return 4;
+						break;
+				}
+			})();
+		}
+
+		//set up click for removing row
+		(function(row, parent){
+			weaponRow.querySelector(".removerow").addEventListener('click', removeRow(row, parent));
+		})([].slice.call(weaponRow.childNodes, 0)[0], placeWeapons);
+
+		placeWeapons.appendChild(weaponRow);
+	};
+	var addTarget = function(target){
+		var targetRow = document.createDocumentFragment();
+		var item = document.createElement('li');
+		var placeTargets = document.getElementById("placetargets");
+		item.innerHTML = document.getElementById("calctarget").innerHTML;
+		targetRow.appendChild(item);
+
+		//set up click for removing row
+		(function(row, parent){
+			targetRow.querySelector(".removerow").addEventListener('click', removeRow(row, parent));
+		})([].slice.call(targetRow.childNodes, 0)[0], placeTargets);
+
+		placeTargets.appendChild(targetRow);
+	};
+
+	var doCalc = function(weapon, target){
+		result = {};
+  
+  	    var output = 1;
+	    
+		//if we have D shots	    
+	    var d_shots = false;
+	    if (weapon['shots'].toLowerCase().indexOf('d') !== -1){
+	      d_shots = true;
+	    }
+	    
+	    //if we have D damage
+	    var d_damage = false;
+	    if (weapon['d'].toLowerCase().indexOf('d') !== -1){
+	      d_damage = true;
+	    }
+	    
+	    //the required wound roll for the matchup
+	    var to_wound = woundRoll(weapon['strength'], target['tough']);
+	    result['to_wound'] = to_wound;
+	    
+	    var armor_save = armorSaveRoll(weapon['ap'], target['save']);
+
+	    if (armor_save){
+		    result['armor_save'] = armor_save;
+	    } else {
+		    result['armor_save'] = cnst.unsavedText;
+	    }
+	    
+	       
+	    //chance to hit per shot
+	    var outputb = output; //tracks with one less bs for "move and shoot" gimp
+	    output = output * rollchance(parseInt(weapon['bs']));
+	    outputb = outputb * rollchance(parseInt(weapon['bs']) + 1);
+	    //= chance you hit target
+	    
+	    //chance to wound per hit
+	    output = output * rollchance(to_wound);
+	    outputb = outputb * rollchance(to_wound);
+	    //= chance you wounded target
+	    
+	    var inv = parseInt(target['invuln']);
+	    //chance to save per wound
+	    if (armor_save && (!inv || armor_save <= inv)){
+	      output = output * rollchance(8-armor_save); 
+	      outputb = outputb * rollchance(8-armor_save);  
+	      //= chance of unsaved wound
+	    } else if (inv){
+	      //chance of invuln
+	      output = output * rollchance(8-inv);
+	      outputb = outputb * rollchance(8-inv);
+	    }
+	    //= chance of damaging target
+	    
+	    //Feel No Pain
+	    var fnpnum = parseInt(target['fnp']);
+	    if (fnpnum){
+	      output = output * rollchance(8-fnpnum);
+	      outputb = outputb * rollchance(8-fnpnum);
+	    }
+	    //chance unsaved after all saves
+	    
+
+	    result['damage_roll'] = cnst.inapplicable;
+	    //damage per unsaved wound
+	    if (d_damage){
+	    	var agg = multipleDiceAverage(weapon['d']);
+		
+		    result['damage_roll'] = agg;
+	    
+	    	//apply damage to output
+			output = output * agg;
+		    outputb = outputb * agg;
+
+	    } else {
+		    output = output * parseInt(weapon['d']);
+		    outputb = outputb * parseInt(weapon['d']);	    	
+	    }
+	    //= damage dealt per shot
+	    result['per_shot'] = roundout(output, 2);
+	    result['per_shot_gimp'] = roundout(outputb, 2);
+
+	    //average shots to kill if wounds provided
+	   	result['shots_to_kill'] = cnst.inapplicable;
+	   	result['shots_to_kill_gimp'] = cnst.inapplicable;
+	    if (target['wounds']){
+		    result['shots_to_kill']  = Math.ceil(parseInt(target['wounds']) / output);
+		    result['shots_to_kill_gimp']  = Math.ceil(parseInt(target['wounds']) / outputb);
+	    } 
+	    
+	    //number of shots
+	    if (d_shots){
+	    	var agg = multipleDiceAverage(weapon['shots']);
+		
+		    result['shot_roll'] = agg;
+	    
+	    	//apply damage to output
+			output = output * agg;
+		    outputb = outputb * agg;
+
+	    } else {
+		    output = output * parseInt(weapon['shots']);
+		    outputb = outputb * parseInt(weapon['shots']);
+	    }
+	    //= damage dealt per turn
+	    result['per_turn'] = roundout(output, 2);
+	    result['per_turn_gimp'] = roundout(outputb, 2);
+	    
+
+	    //by type
+	    if (weapon['type'] === 'R'){
+	    	result['half_range'] = roundout(output*2, 2);
+	    	result['half_range_gimp'] = roundout(outputb*2, 2);
+	    } else {
+	    	result['half_range'] = roundout(output, 2);
+	    	result['half_range_gimp'] = roundout(outputb, 2);
+	    }
+	    
+
+		return result;
+	};
+
+	document.getElementById('calculate').addEventListener('click', function(e){
+		e.preventDefault();
+
+		//get weapons object with k=>v
+		var weaponsObjects = [];
+		var weapons = document.getElementById('placeweapons').querySelectorAll('li');
+		for(var i = 0, l = weapons.length; i<l; ++i){
+			weaponsObjects[i] = {};
+			weaponsObjects[i]['guid'] = guid();
+			var weaponStats = weapons[i].querySelectorAll('select, input');
+			for( var j = 0, m = weaponStats.length; j<m; ++j){
+				weaponsObjects[i][weaponStats[j].name] = weaponStats[j].value;
+			}
+		}
+
+		//get targets object with k=>v
+		var targetsObjects = [];
+		var targets = document.getElementById('placetargets').querySelectorAll('li');
+		for(var i = 0, l = targets.length; i<l; ++i){
+			targetsObjects[i] = {};
+			targetsObjects[i]['guid'] = guid();
+			var targetStats = targets[i].querySelectorAll('select, input');
+			for( var j = 0, m = targetStats.length; j<m; ++j){
+				targetsObjects[i][targetStats[j].name] = targetStats[j].value;
+			}
+		}
+
+		console.log(weaponsObjects);
+		console.log(targetsObjects);
+
+		var results = [];
+		//run calculation for each
+		for (var i = 0, l = weaponsObjects.length; i<l; ++i){
+			for (var j = 0, m = targetsObjects.length; j<m; ++j){
+				results.push({
+					'weapon': weaponsObjects[i], 
+					'target': targetsObjects[j], 
+					'result': doCalc(weaponsObjects[i], targetsObjects[j])
+				});
+			}
+		}
+
+		//output result data in desired format(s);
+		weaponVsTargets(results);
+
+		return false;		
+
+	});
+
+	addWeapon();
+	document.getElementById('addweapon').addEventListener('click', function(e){
+		e.preventDefault();
+		addWeapon();
+		return false;
+	});
+
+	addTarget();
+	document.getElementById('addtarget').addEventListener('click', function(e){
+		e.preventDefault();
+		addTarget();
+		return false;
+	});
+	
+	
+	var weaponVsTargets = function (results) {
+		// body...
+		var weaponVsTargetsReports = {};
+		//each of the weapons
+		for (var i = 0, l = results.length; i<l; ++i){
+			var weaponGuid = results[i].weapon.guid;
+			
+			//haven't had this weapon yet, set up the initial table
+			if (!weaponVsTargetsReports.hasOwnProperty(weaponGuid)){
+				weaponVsTargetsReports[weaponGuid] = document.createDocumentFragment();
+				var item = document.createElement('div');
+				item.innerHTML = document.getElementById("weaponVsTargets").innerHTML;
+				weaponVsTargetsReports[weaponGuid].appendChild(item);
+				weaponVsTargetsReports[weaponGuid].querySelector("h5").innerHTML = results[i].weapon.name;
+			}
+			console.log(results[i]);
+			//add row for this target
+			var reportBody = weaponVsTargetsReports[weaponGuid].querySelector("tbody");
+			reportBody.insertAdjacentHTML( 'beforeend', "<tr>\
+				<td>" + results[i].target.name + "</td>\
+				<td>" + results[i].result.to_wound + "</td>\
+				<td>" + results[i].result.per_shot + "</td>\
+				<td>" + results[i].result.per_shot_gimp + "</td>\
+				<td>" + results[i].result.per_turn + "</td>\
+				<td>" + results[i].result.per_turn_gimp + "</td>\
+				<td>" + results[i].result.half_range + "</td>\
+				<td>" + results[i].result.half_range_gimp + "</td>\
+				<td>" + results[i].result.shots_to_kill + "</td>\
+				<td>" + results[i].result.shots_to_kill_gimp + "</td>\
+			</tr>");
+
+		}
+
+		var weaponVsTargetsReport = document.getElementById("weaponVsTargetsReport");
+		weaponVsTargetsReport.innerHTML = "";
+		for(var weaponGuid in weaponVsTargetsReports){
+			if (weaponVsTargetsReports.hasOwnProperty(weaponGuid)){
+				weaponVsTargetsReport.appendChild(weaponVsTargetsReports[weaponGuid]);
+			}
+		}
+	}
+	var weaponsVsTarget = function (argument) {
+
+	}
+	var averageDamageShot = function (argument) {
+		// body...
+	}
+	var averageDamageTurn = function (argument) {
+
+	}
+</script>
+<h3>Still coming:</h3>
+<ul>
+	<li>Better interface (styles, error input feedback, etc.)</li>
+	<li>Common abilities (bonus mortals, etc.)</li>
+	<li>Max damage output</li>
+	<li>Table-structured data reporting
+		<ul>
+			<li>Effectiveness of different weapons against a target</li>
+			<li>Cross-sectional data of many weapons vs many targets for a given output</li>
+		</ul>
+	</li>
+	<li>Input soft-save (so your stats reappear when you return - this is going to be cookie-only, so I won't be holding possibly offical GW data and getting my pants sued off).</li>
+	<li>CSV data export</li>
+</ul>
